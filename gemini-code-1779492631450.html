@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ATM Expert System</title>
+    <style>
+        body { font-family: sans-serif; padding: 20px; background: #f0f2f5; }
+        .box { background: #fff; padding: 20px; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
+        input { width: 100%; padding: 12px; margin: 10px 0; border: 1px solid #ccc; border-radius: 6px; box-sizing: border-box; }
+        button { width: 100%; padding: 12px; background: #007bff; color: white; border: none; border-radius: 6px; cursor: pointer; }
+        #result { margin-top: 20px; border-top: 1px solid #eee; padding-top: 10px; }
+        img { width: 100%; border-radius: 8px; margin-top: 10px; }
+    </style>
+</head>
+<body>
+    <div class="box">
+        <h3>نظام تشخيص أعطال الصراف الآلي</h3>
+        <input type="text" id="code" placeholder="أدخل كود الخطأ (مثال: 41701)">
+        <button onclick="findError()">بحث في القاعدة</button>
+        <div id="result"></div>
+    </div>
+
+    <script>
+        const database = [
+            { "code": "41701", "title": "فشل المحرك الخطي", "desc": "توقف الحركة بسبب عائق", "sol": "تنظيف المسارات", "img": "https://via.placeholder.com/300?text=Mechanical_Failure" },
+            { "code": "5003", "title": "فشل موتور السحب", "desc": "عدم القدرة على سحب الأوراق", "sol": "تغيير الربر/تنظيف البكرات", "img": "https://via.placeholder.com/300?text=Pick_Motor_Error" }
+        ];
+
+        function findError() {
+            const val = document.getElementById('code').value;
+            const res = database.find(i => i.code === val);
+            const div = document.getElementById('result');
+            if(res) {
+                div.innerHTML = `<h4>${res.title}</h4><p>${res.desc}</p><b>الحل:</b><p>${res.sol}</p><img src="${res.img}">`;
+            } else {
+                div.innerHTML = "الكود غير موجود في القاعدة.";
+            }
+        }
+    </script>
+</body>
+</html>
